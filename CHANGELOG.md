@@ -2,6 +2,10 @@
 
 This project adheres to [Semantic Versioning](https://semver.org/).
 
+## 8.5.13
+
+- Fixed `postcss-scss` commend regression.
+
 ## 8.5.12
 
 - Fixed reading any file via user-generated CSS.
