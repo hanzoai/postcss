@@ -55,5 +55,13 @@ export default [
       'no-console': 'off',
       'no-unused-expressions': 'off'
     }
+  },
+  {
+    files: ['test/fuzzing/*'],
+    rules: {
+      'n/no-missing-require': 'off',
+      'no-unused-expressions': 'off',
+      'no-void': 'off'
+    }
   }
 ]

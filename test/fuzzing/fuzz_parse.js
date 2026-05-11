@@ -14,11 +14,12 @@
 //
 ////////////////////////////////////////////////////////////////////////////////
 
-const { FuzzedDataProvider } = require('@jazzer.js/core')
-const postcss = require('../../lib/postcss')
+let { FuzzedDataProvider } = require('@jazzer.js/core')
+
+let postcss = require('../../lib/postcss')
 
 module.exports.fuzz = function (data) {
-  const provider = new FuzzedDataProvider(data)
+  let provider = new FuzzedDataProvider(data)
 
   // The CSS input itself is randomized: every byte the fuzzer produces (or
   // mutates from the seed corpus) flows directly into `cssString` via
@@ -27,15 +28,15 @@ module.exports.fuzz = function (data) {
   // tail), so seed CSS files from postcss-parser-tests are fed into the
   // parser nearly verbatim, with only their last few bytes nibbled off as
   // option control.
-  const useMap = provider.consumeBoolean()
-  const useFrom = provider.consumeBoolean()
-  const useProcessor = provider.consumeBoolean()
-  const splitMode = provider.consumeIntegralInRange(0, 2)
-  const cssString = provider.consumeRemainingAsString()
+  let useMap = provider.consumeBoolean()
+  let useFrom = provider.consumeBoolean()
+  let useProcessor = provider.consumeBoolean()
+  let splitMode = provider.consumeIntegralInRange(0, 2)
+  let cssString = provider.consumeRemainingAsString()
 
-  const parseOptions = {}
+  let parseOptions = {}
   if (useFrom) parseOptions.from = 'fuzz.css'
-  if (useMap) parseOptions.map = { inline: false, annotation: false }
+  if (useMap) parseOptions.map = { annotation: false, inline: false }
 
   let root
   try {
@@ -77,21 +78,21 @@ module.exports.fuzz = function (data) {
 
   // Exercise the JSON serialization round-trip.
   try {
-    const json = root.toJSON()
+    let json = root.toJSON()
     postcss.fromJSON(json)
   } catch (e) {
-    if (!isExpected(e, postcss)) throw e
+    if (!isExpected(e)) throw e
   }
 
   // Exercise the main public entry point: postcss().process(). This drives
   // the LazyResult / NoWorkResult pipeline that real plugin chains use.
   if (useProcessor) {
     try {
-      const result = postcss().process(cssString, parseOptions)
+      let result = postcss().process(cssString, parseOptions)
       void result.css
       void result.warnings()
     } catch (e) {
-      if (!isExpected(e, postcss)) throw e
+      if (!isExpected(e)) throw e
     }
   }
 
@@ -105,16 +106,16 @@ module.exports.fuzz = function (data) {
       postcss.list.split(cssString, [',', ' '], false)
     }
   } catch (e) {
-    if (!isExpected(e, postcss)) throw e
+    if (!isExpected(e)) throw e
   }
 }
 
-function isExpected(error, postcss) {
+function isExpected(error) {
   if (error instanceof postcss.CssSyntaxError) return true
   if (!error || typeof error.message !== 'string') return false
   // Some legitimate inputs reach known-shaped TypeErrors during stringify or
   // walk because the CSS allows constructs whose textual form is ambiguous.
   // Suppress only those well-defined cases so real bugs still surface.
-  const benign = ['Unknown node type', 'Unknown word']
+  let benign = ['Unknown node type', 'Unknown word']
   return benign.some(msg => error.message.indexOf(msg) !== -1)
 }
