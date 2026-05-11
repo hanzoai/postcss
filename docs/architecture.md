@@ -33,11 +33,7 @@ Before diving deeper into the development of PostCSS let's briefly describe what
 
 ### Workflow
 
-This is a high-level overview of the whole PostCSS workflow
-
-<img width="300" src="https://upload.wikimedia.org/wikipedia/commons/thumb/a/aa/PostCSS_scheme.svg/960px-PostCSS_scheme.svg.png" alt="workflow">
-
-As you can see from the diagram above, PostCSS architecture is pretty straightforward but some parts of it could be misunderstood.
+This is a [high-level overview](https://commons.wikimedia.org/wiki/File:PostCSS_scheme.svg) of the whole PostCSS workflow.
 
 You can see a part called _Parser_, this construct will be described in details later on, just for now think about it as a structure that can understand your CSS like syntax and create an object representation of it.
 
