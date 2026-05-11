@@ -99,3 +99,11 @@
 "\""
 "'"
 "\\"
+
+# Source map annotations
+# Reaching the source-map parsing branch quickly has historically uncovered
+# bugs; postcss matches /\*\s*# sourceMappingURL=/ and decodes inline base64
+# payloads via the `data:application/json;base64,` prefix.
+"/*# sourceMappingURL="
+"# sourceMappingURL="
+"data:application/json;base64,"
