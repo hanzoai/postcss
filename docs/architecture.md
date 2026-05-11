@@ -35,7 +35,7 @@ Before diving deeper into the development of PostCSS let's briefly describe what
 
 This is a high-level overview of the whole PostCSS workflow
 
-<img width="300" src="https://upload.wikimedia.org/wikipedia/commons/thumb/a/aa/PostCSS_scheme.svg/512px-PostCSS_scheme.svg.png" alt="workflow">
+<img width="300" src="https://upload.wikimedia.org/wikipedia/commons/a/aa/PostCSS_scheme.svg" alt="workflow">
 
 As you can see from the diagram above, PostCSS architecture is pretty straightforward but some parts of it could be misunderstood.
 
