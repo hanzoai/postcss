@@ -1,0 +1,12 @@
+# Canonical CI/CD config for hanzoai/postcss — read by hanzoai/ci (via
+# .hanzo/workflows/cicd.yml) and by platform.hanzo.ai.
+#
+# Library (npm). No build step — lib/ ships as-is — so the unit suite IS the
+# gate: the uvu tests over the tokenizer, parser and stringifier, which is what
+# breaks when this code breaks.
+#
+# pnpm is invoked through npx at a pinned major because this repo declares no
+# `packageManager` field, so the corepack shim has no version to resolve.
+test:
+  - name: unit
+    run: npx --yes pnpm@10 install --frozen-lockfile && npx --yes pnpm@10 run unit
